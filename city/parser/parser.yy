@@ -45,7 +45,8 @@
 
 %type <construction*>             construction
 %type <coordonnee>                coord
-%type <maison*>             maison
+%type <maison*>                   maison
+%type <maison*>                   element
 %type <int>             operation
 %left '-' '+'
 %left '*' '/'
@@ -110,14 +111,7 @@ operation:
            coordonnee B={$2,$4,$6};
            $$ = B;
     }
-/*partie maison okies*/
-maison:
-    MAISON {
-        $$=new  maison ();
-    }
-    |MAISON coord {
-        $$ =new maison ($2);
-    }
+
 /*partie construction c'est bon*/
 construction:
     CONSTRUIRE '(' NUMBER ')'   {
@@ -128,20 +122,35 @@ construction:
        $$= new construction;
        }
 
-/*route*/
-route:
-    ROUTE coord '-''>' coord NL {
-        maison* m= new maison($2);
-        maison* m2= new maison($5);
-        m->ajouteRoute(m2);
-         m2->ajouteRoute(m);
-    }
-
 /*ville */
 ville:
-    construction '{' NL maison NL route NL '}' {
-       $1->ajouteMaison($4);
+    construction '{' NL element {
+     $1->ajouteMaison($4);
     }
+
+element:
+    maison NL element {
+        $$=$1;
+    }
+    | route NL element
+    | '}' NL
+
+route:
+    ROUTE coord '-''>' coord NL {
+        maison* m = new maison($2);
+        maison* m2 = new maison($5);
+        m->ajouteRoute(m2);
+        m2->ajouteRoute(m);
+    }
+
+maison:
+    MAISON {
+        $$=new  maison ();
+    }
+    |MAISON coord {
+        $$ =new maison ($2);
+    }
+
 %%
 
 void yy::Parser::error( const location_type &l, const std::string & err_msg) {

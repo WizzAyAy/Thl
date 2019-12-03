@@ -23,6 +23,7 @@ file(GLOB EXPRESSION_HEADERS
     villeconst/construction.hh
     villeconst/maison.hh
     villeconst/route.hh
+    villeconst/instruction.hh
      )
 
 add_library(libexpressions 
@@ -34,6 +35,7 @@ add_library(libexpressions
     villeconst/construction.cc
     villeconst/maison.cc
     villeconst/route.cc
+    villeconst/instruction.cc
     ${EXPRESSION_HEADERS}
     )
 
