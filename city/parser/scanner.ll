@@ -44,8 +44,8 @@ fin return token::END;
     "construire"   {
         return token::CONSTRUIRE;
     }
-    co {
-       return token::CONSTRUIRE;
+    "co"   {
+        return token::CONSTRUIRE;
     }
     "maison"    {
         return token::MAISON;

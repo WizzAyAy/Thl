@@ -1,9 +1,12 @@
 #pragma once
-#include "construction.hh"
+#include <iostream>
+
 
 class instruction
 {
 public:
     instruction();
-    //virtual void exec(construction & c)=0;
+    instruction(instruction const & Q)=default;
+    virtual void exec() =0;
+    virtual instruction* clone() =0;
 };

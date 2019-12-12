@@ -27,7 +27,8 @@
 %code{
     #include <iostream>
     #include <string>
-    
+    #include <memory>
+
     #include "scanner.hh"
     #include "driver.hh"
 
@@ -46,8 +47,9 @@
 %type <construction*>             construction
 %type <coordonnee>                coord
 %type <maison*>                   maison
-%type <maison*>                   element
-%type <int>             operation
+%type <route*>                    route
+%type <int>                       operation
+%type <instruction*>               element
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -55,30 +57,18 @@
 %%
 
 programme:
-    instruction NL programme
+    instructions NL programme
     | END NL  {
         YYACCEPT;
 
     }
 
-instruction:
+instructions:
     operation  {
         std::cout << "#-> " << $1 << std::endl;
     }
-    |maison {
-
-    }
-
-    |route{
-
-    }
-
-    |coord {
-         std::cout<<"je trouve des coord"<<std::endl;
-    }
-
     |ville {
-    }instruction
+    }instructions
 
 
 
@@ -111,7 +101,14 @@ operation:
            coordonnee B={$2,$4,$6};
            $$ = B;
     }
-
+/*partie maison okies*/
+maison:
+    MAISON {
+        $$= new maison();
+    }
+    |MAISON coord {
+        $$ =new maison($2);
+    }
 /*partie construction c'est bon*/
 construction:
     CONSTRUIRE '(' NUMBER ')'   {
@@ -119,39 +116,34 @@ construction:
 
     }
     | CONSTRUIRE  {
-       $$= new construction;
+       $$= new construction();
        }
+
+/*route*/
+route:
+    ROUTE coord '-''>' coord {
+
+        maison M1($2);
+        maison M2($5);
+        $$ = new route(M1,M2);
+
+    }
+element:
+     maison NL element {
+         $$=$1;
+      }
+     | route NL element{
+        $$=$1;
+     }
+     | '}' NL
 
 /*ville */
 ville:
     construction '{' NL element {
-     $1->ajouteMaison($4);
+       $1->ajouteInstruction($4);
     }
-
-element:
-    maison NL element {
-        $$=$1;
-    }
-    | route NL element
-    | '}' NL
-
-route:
-    ROUTE coord '-''>' coord NL {
-        maison* m = new maison($2);
-        maison* m2 = new maison($5);
-        m->ajouteRoute(m2);
-        m2->ajouteRoute(m);
-    }
-
-maison:
-    MAISON {
-        $$=new  maison ();
-    }
-    |MAISON coord {
-        $$ =new maison ($2);
-    }
-
 %%
+
 
 void yy::Parser::error( const location_type &l, const std::string & err_msg) {
     std::cerr << "Erreur : " << l << ", " << err_msg << std::endl;

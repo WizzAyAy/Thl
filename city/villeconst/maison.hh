@@ -12,18 +12,17 @@ class maison : public instruction
 {
 private:
     coordonnee _coordMaison;
-    int _id;
-    static int id;
-    std::vector<maison*> _route;
+    std::vector<maison* > _route;
 
 public:
     maison(coordonnee A);
     maison();
+    maison(maison const & Q) =default;
+    ~maison() = default;
     coordonnee coordMaison() const;
-    void setId(int id);
-    int getId() const{return _id;}
-    void ajouteRoute (maison *A);
-    //void exec(construction &c)override;
+    void ajouteRoute (maison* A);
+    instruction * clone() override;
+    void exec() override;
 };
 
 
