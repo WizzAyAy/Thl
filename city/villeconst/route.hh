@@ -1,18 +1,18 @@
 #pragma once
-#include "maison.hh"
-#include <instruction.hh>
+#include "instruction.hh"
 
+class maison;
 class route : public instruction
 {
 private:
-    maison _extremite1;
-    maison _extremite2;
+    maison* _extremite1;
+    maison* _extremite2;
 public:
-    route(maison const & A,maison const & B);
+    route(maison *A, maison *B);
     route (route const &R) =default;
     ~route () =default;
     instruction * clone() override;
-    void exec() override;
+    void exec(construction const & C) const override;
 };
 
 

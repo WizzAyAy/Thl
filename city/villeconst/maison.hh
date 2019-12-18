@@ -2,12 +2,8 @@
 #include <vector>
 #include <memory>
 #include "instruction.hh"
-#include "construction.hh"
-struct coordonnee {
-    int X;
-    int Y;
-    int Z;
-};
+#include "coordonnees.hh"
+
 class maison : public instruction
 {
 private:
@@ -22,7 +18,10 @@ public:
     coordonnee coordMaison() const;
     void ajouteRoute (maison* A);
     instruction * clone() override;
-    void exec() override;
+    void exec(construction const & C) const override;
+    void setCoord( coordonnee Q){
+        _coordMaison = Q;
+    }
 };
 
 

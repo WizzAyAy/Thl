@@ -13,30 +13,18 @@ find_package(FLEX)
 
 
 include_directories(parser expressions villeconst ${CMAKE_CURRENT_BINARY_DIR})
-file(GLOB EXPRESSION_HEADERS 
-    expressions/contexte.hh
-    expressions/expression.hh
-    expressions/expressionBinaire.hh
-    expressions/expressionUnaire.hh
-    expressions/constante.hh
-    expressions/variable.hh
-    villeconst/construction.hh
-    villeconst/maison.hh
-    villeconst/route.hh
-    villeconst/instruction.hh
+file(GLOB EXPRESSION_HEADERS
+    expressions/*.hh
+    villeconst/*.hh
+     )
+ file(GLOB EXPRESSION_SOURCE
+     expressions/*.cc
+     villeconst/*.cc
      )
 
-add_library(libexpressions 
-    expressions/contexte.cc
-    expressions/expressionBinaire.cc
-    expressions/expressionUnaire.cc
-    expressions/constante.cc
-    expressions/variable.cc
-    villeconst/construction.cc
-    villeconst/maison.cc
-    villeconst/route.cc
-    villeconst/instruction.cc
+add_library(libexpressions
     ${EXPRESSION_HEADERS}
+    ${EXPRESSION_SOURCE}
     )
 
 BISON_TARGET(parser parser/parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp VERBOSE ${CMAKE_CURRENT_BINARY_DIR}/automate.txt)

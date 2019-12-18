@@ -2,7 +2,6 @@
 #include <iostream>
 #include <cstdlib>
 #include "construction.hh"
-
 coordonnee maison::coordMaison() const
 {
     return _coordMaison;
@@ -24,6 +23,6 @@ void maison::ajouteRoute(maison* A){
 instruction * maison::clone(){
     return new maison(*this);
 }
-void maison::exec(){
-    //construction::maisonDeLaVille.push_back(*this);
+void maison::exec(construction const &C) const{
+    C.ajouteMaison(*this);
 }

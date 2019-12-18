@@ -16,6 +16,8 @@
     #include "variable.hh"
     #include "construction.hh"
     #include "maison.hh"
+    #include "route.hh"
+    #include "instruction.hh"
 
     class Scanner;
     class Driver;
@@ -49,7 +51,7 @@
 %type <maison*>                   maison
 %type <route*>                    route
 %type <int>                       operation
-%type <instruction*>               element
+%type <std::vector<instruction*>>               element
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -67,7 +69,7 @@ instructions:
     operation  {
         std::cout << "#-> " << $1 << std::endl;
     }
-    |ville {
+    |construction {
     }instructions
 
 
@@ -101,47 +103,53 @@ operation:
            coordonnee B={$2,$4,$6};
            $$ = B;
     }
-/*partie maison okies*/
-maison:
-    MAISON {
-        $$= new maison();
-    }
-    |MAISON coord {
-        $$ =new maison($2);
-    }
 /*partie construction c'est bon*/
 construction:
-    CONSTRUIRE '(' NUMBER ')'   {
-        $$= new construction($3);
+    CONSTRUIRE '(' NUMBER ')' '{' NL element   {
+        $$= new construction($3,$7);
 
+        driver.ajoutInst($7);
+        driver.seTville ($$);
+        YYACCEPT;
     }
-    | CONSTRUIRE  {
-       $$= new construction();
-       }
-
-/*route*/
-route:
-    ROUTE coord '-''>' coord {
-
-        maison M1($2);
-        maison M2($5);
-        $$ = new route(M1,M2);
-
+    | CONSTRUIRE '{' NL element  {
+       $$= new construction(5,$4);
+        driver.ajoutInst($4);
+        driver.seTville ($$);
+        YYACCEPT;
     }
+
+
+
+/*partie maison okies*/
 element:
-     maison NL element {
-         $$=$1;
-      }
-     | route NL element{
-        $$=$1;
-     }
-     | '}' NL
 
-/*ville */
-ville:
-    construction '{' NL element {
-       $1->ajouteInstruction($4);
-    }
+        MAISON NL element  {
+           maison * tmp = new maison();
+           $$ =$3;
+           $$.push_back(tmp);
+
+          }
+        |MAISON coord NL element {
+            maison * tmp = new maison($2);
+            $$ =$4;
+            $$.push_back(tmp);
+        }
+         |ROUTE coord '-''>' coord NL element {
+
+             maison* M1= new maison($2);
+             maison* M2= new maison($5);
+             route * tmp = new route(M1,M2);
+             $$=$7;
+             $$.push_back(tmp);
+
+         }
+         | '}' NL   {
+
+         }
+
+
+
 %%
 
 

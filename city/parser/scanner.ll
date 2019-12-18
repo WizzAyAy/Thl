@@ -50,10 +50,10 @@ fin return token::END;
     "maison"    {
         return token::MAISON;
     }
-    "route"     {
+    "route"    {
         return token::ROUTE;
     }
-"\n"          {
+    "\n"          {
     loc->lines();
     return token::NL;
 }
