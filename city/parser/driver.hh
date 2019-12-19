@@ -22,8 +22,10 @@ public:
 
     std::shared_ptr<construction> getVille() const{return _ville;}
 
+    void exec();
+
     void afficherDriver()const;
-    void afficherLesMaisons()const;
+    void afficherVille()const;
 };
 
 #endif

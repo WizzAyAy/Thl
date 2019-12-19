@@ -16,7 +16,7 @@ bool construction::maisonExiste(coordonnee c)const{
     }
     return false;
 }
-void construction::ajouteMaison(std::shared_ptr<maison> &A){
+void construction::ajouteMaison(std::shared_ptr<maison> A){
     if(A->getAlea()){
        coordonnee nouv;
        //c'est soit neg soit pos donc pas full random ...
@@ -38,6 +38,12 @@ void construction::ajouteMaison(std::shared_ptr<maison> &A){
 
 void construction::ajouteRoute(std::shared_ptr<route> R){
     _routeDeLaVille.push_back(R);
+}
+
+void construction::exec(const std::vector<std::shared_ptr<instruction> > &vect){
+    for(auto x : vect){
+        x->exec(*this);
+    }
 }
 
 

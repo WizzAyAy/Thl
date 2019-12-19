@@ -13,6 +13,9 @@ public:
     ~route () =default;
 
     std::shared_ptr<instruction> clone() const override;
+    void afficher(std::ostream &os)const override;
+
+    void exec(construction & C);
 };
 
 

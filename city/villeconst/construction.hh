@@ -23,13 +23,13 @@ public:
 
     unsigned int rayon() const{return _rayon;}
     void setRayon(unsigned int rayon){_rayon = rayon;}
-    std::vector<std::shared_ptr<maison> > maisonDeLaVille()const{return _maisonDeLaVille;}
+    std::vector<std::shared_ptr<maison>> maisonDeLaVille()const{return _maisonDeLaVille;}
 
     bool maisonExiste(coordonnee c)const;
 
-    void ajouteMaison(std::shared_ptr<maison> &A);
+    void ajouteMaison(std::shared_ptr<maison> A);
     void ajouteRoute(std::shared_ptr<route> R);
 
-    void exec(const std::vector<std::shared_ptr<instruction> > &vect);
+    void exec(const std::vector<std::shared_ptr<instruction>> &vect);
 };
 
