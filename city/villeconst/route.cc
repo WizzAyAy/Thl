@@ -3,9 +3,6 @@
 
 route::route(maison *A, maison *B):instruction(),_extremite1(A),_extremite2(B)
 {}
-instruction * route::clone(){
-    return new route(*this);
-}
-void route::exec(const construction &C) const{
-  C.
+std::unique_ptr<instruction> route::clone() const{
+    return std::make_unique<route>(*this);
 }

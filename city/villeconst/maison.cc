@@ -1,28 +1,27 @@
 #include "maison.hh"
+#include "construction.hh"
+
+
 #include <iostream>
 #include <cstdlib>
-#include "construction.hh"
-coordonnee maison::coordMaison() const
-{
-    return _coordMaison;
-}
 
-maison::maison(coordonnee A):instruction(),_coordMaison(A)
+
+
+maison::maison(coordonnee A):instruction(),_coordMaison(A), _estAlea(false)
 {
     std::cout<<" je construis à la position ("<<_coordMaison.X<<","<<_coordMaison.Y<<","<<_coordMaison.Z<<")"<<std::endl;
 }
 
-maison::maison(): instruction(){
+maison::maison(): instruction(), _estAlea(true){
    _coordMaison ={0,0,0};
     std::cout<<" je construis à la position ("<<_coordMaison.X<<","<<_coordMaison.Y<<","<<_coordMaison.Z<<")"<<std::endl;
 }
-void maison::ajouteRoute(maison* A){
-    _route.push_back(A);
+
+std::unique_ptr<instruction> maison::clone() const{
+    return std::make_unique<maison>(*this);
 }
 
-instruction * maison::clone(){
-    return new maison(*this);
+std::unique_ptr<maison> maison::copie() const{
+    return std::make_unique<maison>(*this);
 }
-void maison::exec(construction const &C) const{
-    C.ajouteMaison(*this);
-}
+

@@ -11,8 +11,8 @@ public:
     route(maison *A, maison *B);
     route (route const &R) =default;
     ~route () =default;
-    instruction * clone() override;
-    void exec(construction const & C) const override;
+
+    std::unique_ptr<instruction> clone() const override;
 };
 
 

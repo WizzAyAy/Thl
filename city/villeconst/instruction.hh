@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <memory>
 
 class construction;
 class instruction
@@ -7,6 +8,6 @@ class instruction
 public:
     instruction();
     instruction(instruction const & Q)=default;
-    virtual void exec(construction const & C) const =0;
-    virtual instruction* clone() =0;
+    virtual void exec(construction & C) const {}
+    virtual std::unique_ptr<instruction>clone() const=0;
 };

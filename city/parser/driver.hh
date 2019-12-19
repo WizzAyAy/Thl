@@ -10,24 +10,17 @@
 class Driver {
 private:
     Contexte variables;       
-    std::vector<instruction *> lesInstructions;
-    std::vector<construction*> _ville;
+    std::vector<std::unique_ptr<instruction>> lesInstructions;
+    std::unique_ptr<construction> _ville;
 public:
     Driver() = default;
-    void ajoutInst(std::vector<instruction *> inst);
+    void ajoutInst(std::vector<std::unique_ptr<instruction>> inst);
     ~Driver() = default;
     Driver(const Driver&) = default;
-    std::vector<instruction *> getLesInstructions() const;
-    void salut(){
+    std::vector<std::unique_ptr<instruction>> getLesInstructions() const;
 
-        std::cout<<"Salut";
-    }
-    void seTville(construction * ville){
-        _ville.push_back(ville);
-    }
-    std::vector<construction*> getVille(){
-        return _ville;
-    }
+    void seTville(std::unique_ptr<construction> ville){_ville = std::move(ville);}
+    std::unique_ptr<construction> getVille(){return _ville;}
 };
 
 #endif

@@ -8,20 +8,19 @@ class maison : public instruction
 {
 private:
     coordonnee _coordMaison;
-    std::vector<maison* > _route;
+    bool _estAlea;
 
 public:
     maison(coordonnee A);
     maison();
-    maison(maison const & Q) =default;
-    ~maison() = default;
-    coordonnee coordMaison() const;
-    void ajouteRoute (maison* A);
-    instruction * clone() override;
-    void exec(construction const & C) const override;
-    void setCoord( coordonnee Q){
-        _coordMaison = Q;
-    }
+
+    std::unique_ptr<instruction> clone() const override;
+    std::unique_ptr<maison> copie()const;
+
+    coordonnee coordMaison() const{return _coordMaison;}
+    void setCoord( coordonnee Q){_coordMaison = Q;}
+    bool getAlea()const{return _estAlea;}
 };
+
 
 
