@@ -10,17 +10,20 @@
 class Driver {
 private:
     Contexte variables;       
-    std::vector<std::unique_ptr<instruction>> lesInstructions;
-    std::unique_ptr<construction> _ville;
+    std::vector<std::shared_ptr<instruction>> _lesInstructions;
+    std::shared_ptr<construction> _ville;
 public:
     Driver() = default;
-    void ajoutInst(std::vector<std::unique_ptr<instruction>> inst);
     ~Driver() = default;
     Driver(const Driver&) = default;
-    std::vector<std::unique_ptr<instruction>> getLesInstructions() const;
 
-    void seTville(std::unique_ptr<construction> ville){_ville = std::move(ville);}
-    std::unique_ptr<construction> getVille(){return _ville;}
+    void setInstructions(std::vector<std::shared_ptr<instruction>> &inst);
+    void setVille(std::shared_ptr<construction> ville);
+
+    std::shared_ptr<construction> getVille() const{return _ville;}
+
+    void afficherDriver()const;
+    void afficherLesMaisons()const;
 };
 
 #endif

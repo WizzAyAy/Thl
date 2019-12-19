@@ -5,14 +5,14 @@ class maison;
 class route : public instruction
 {
 private:
-    maison* _extremite1;
-    maison* _extremite2;
+    std::shared_ptr<maison> _extremite1;
+    std::shared_ptr<maison> _extremite2;
 public:
-    route(maison *A, maison *B);
+    route(std::shared_ptr<maison> const &A, std::shared_ptr<maison> const &B);
     route (route const &R) =default;
     ~route () =default;
 
-    std::unique_ptr<instruction> clone() const override;
+    std::shared_ptr<instruction> clone() const override;
 };
 
 

@@ -12,7 +12,7 @@ int main( int  argc, char* argv[]) {
     yy::Parser parser(scanner, driver);
 
     parser.parse();
-    std::cout<<"taille -> "<<driver.getLesInstructions().size()<<std::endl;
-    std::cout<<"UNE VILLE -> "<<driver.getVille().size()<<std::endl;
+    //std::cout<<"taille -> "<<driver.getLesInstructions().size()<<std::endl;
+    driver.afficherDriver();
     return 0;
 }

@@ -14,13 +14,17 @@ public:
     maison(coordonnee A);
     maison();
 
-    std::unique_ptr<instruction> clone() const override;
-    std::unique_ptr<maison> copie()const;
+    std::shared_ptr<instruction> clone() const override;
+//    std::unique_ptr<maison> copie()const;
 
     coordonnee coordMaison() const{return _coordMaison;}
     void setCoord( coordonnee Q){_coordMaison = Q;}
     bool getAlea()const{return _estAlea;}
 };
 
+std::ostream & operator<<(std::ostream &os, maison const & m){
+    os << "maison (" <<m.coordMaison().X << "," << m.coordMaison().Y << "," << m.coordMaison().Z << ") [" << m.getAlea() << "].";
+    return os;
+}
 
 

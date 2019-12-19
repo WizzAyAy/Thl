@@ -46,12 +46,12 @@
 %token                  ROUTE
 
 
-%type <construction*>             construction
+%type <std::shared_ptr<construction>>             construction
 %type <coordonnee>                coord
-%type <std::unique_ptr<maison>>   maison
-%type <std::unique_ptr<route>>    route
+%type <std::shared_ptr<maison>>   maison
+%type <std::shared_ptr<route>>    route
 %type <int>                       operation
-%type <std::vector<std::unique_ptr<instruction>>  element
+%type <std::vector<std::shared_ptr<instruction>>>  element
 %left '-' '+'
 %left '*' '/'
 %precedence  NEG
@@ -106,16 +106,17 @@ operation:
 /*partie construction c'est bon*/
 construction:
     CONSTRUIRE '(' NUMBER ')' '{' NL element   {
-        $$= new construction($3);
+        $$= std::make_shared<construction>($3);
 
-        driver.ajoutInst($7);
-        driver.seTville ($$);
+        driver.setInstructions($7);
+        driver.setVille ($$);
         YYACCEPT;
     }
     | CONSTRUIRE '{' NL element  {
-       $$= new construction(5);
-        driver.ajoutInst($4);
-        driver.seTville ($$);
+       $$= std::make_shared<construction>(5);
+
+        driver.setInstructions($4);
+        driver.setVille ($$);
         YYACCEPT;
     }
 
@@ -125,28 +126,26 @@ construction:
 element:
 
         MAISON NL element  {
-           std::unique_ptr<maison> tmp = std::make_unique<maison>();
+           std::shared_ptr<maison> tmp = std::make_shared<maison>();
            $$ =$3;
-           $$.push_back(std::move(tmp));
+           $$.push_back(tmp);
 
           }
         |MAISON coord NL element {
-            std::unique_ptr<maison> tmp = std::make_unique<maison>($2);
+            std::shared_ptr<maison> tmp = std::make_unique<maison>($2);
             $$ =$4;
-            $$.push_back(std::move(tmp));
+            $$.push_back(tmp);
         }
          |ROUTE coord '-''>' coord NL element {
 
-             std::unique_ptr<maison> M1 = std::make_unique<maison>($2);
-             std::unique_ptr<maison> M2 = std::make_unique<maison>($5);
-             std::unique_ptr<route> tmp = std::make_unique<route>(M1,M2);
+             std::shared_ptr<maison> M1 = std::make_shared<maison>($2);
+             std::shared_ptr<maison> M2 = std::make_shared<maison>($5);
+             std::shared_ptr<route> tmp = std::make_shared<route>(M1,M2);
              $$=$7;
-             $$.push_back(std::move(tmp));
+             $$.push_back(tmp);
 
          }
-         | '}' NL   {
-
-         }
+         | '}' NL
 
 
 

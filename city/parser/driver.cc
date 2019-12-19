@@ -1,11 +1,32 @@
 #include "driver.hh"
+#include "construction.hh"
+
 #include <iostream>
+#include <memory>
 
-std::vector<instruction *> Driver::getLesInstructions() const
+class maison;
+
+void Driver::setInstructions(std::vector<std::shared_ptr<instruction> > &inst){
+    for(auto const & x : inst){
+        _lesInstructions.push_back(x->clone());
+    }
+}
+
+void Driver::setVille(std::shared_ptr<construction> ville){
+    _ville = ville;
+}
+
+void Driver::afficherDriver() const{
+    std::cout << "Driver : \nrayon = " << _ville->rayon() << std::endl;
+    std::cout << "nb instructions " << _lesInstructions.size() << std::endl;
+}
+
+void Driver::afficherLesMaisons() const
 {
-    return lesInstructions;
+    for(auto x : _lesInstructions){
+        auto i = dynamic_cast<maison>(x);
+        if(i != nullptr)
+            std::cout << *i << std::endl;
+    }
 }
 
-void Driver::ajoutInst(std::vector<std::unique_ptr<instruction>> inst){
-    lesInstructions = inst;
-}
