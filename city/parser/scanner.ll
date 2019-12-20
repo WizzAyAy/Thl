@@ -53,6 +53,12 @@ fin return token::END;
     "route"    {
         return token::ROUTE;
     }
+    "horraire" {
+        return token::HORRAIRE;
+    }
+    "tourner" {
+        return token::TOURNER;
+    }
     "\n"          {
     loc->lines();
     return token::NL;

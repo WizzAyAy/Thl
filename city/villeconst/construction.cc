@@ -1,14 +1,21 @@
-#include "construction.hh"
 #include <iostream>
+#include <algorithm>
 
 #include "maison.hh"
 #include "route.hh"
 #include "instruction.hh"
+#include "construction.hh"
 
 
 
 construction::construction(int rayon):_rayon(rayon){}
 construction::construction():_rayon(3){}
+
+std::shared_ptr<maison> construction::getMaisonI(const int &indice) const
+{
+    auto it = std::find_if(_maisonDeLaVille.begin(), _maisonDeLaVille.end(), [indice](std::shared_ptr<maison> const & temp){return indice == temp->getIndice();});
+    return *it;
+}
 
 bool construction::maisonExiste(coordonnee c)const{
     for(auto const&n : _maisonDeLaVille){

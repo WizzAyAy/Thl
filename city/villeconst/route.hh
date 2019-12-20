@@ -15,6 +15,9 @@ public:
     std::shared_ptr<instruction> clone() const override;
     void afficher(std::ostream &os)const override;
 
+    std::shared_ptr<maison> getMaison1()const{return _extremite1;}
+    std::shared_ptr<maison> getMaison2()const{return _extremite2;}
+
     void exec(construction & C) override;
 };
 

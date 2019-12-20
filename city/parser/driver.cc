@@ -1,6 +1,7 @@
 #include "driver.hh"
 #include "construction.hh"
 #include "maison.hh"
+#include "route.hh"
 
 #include <iostream>
 #include <memory>
@@ -45,11 +46,18 @@ void Driver::afficherVille() const
 void Driver::construireVille() const
 {
    V->setRayon(_ville->rayon());
-
-   for (auto & house : _ville->maisonDeLaVille()){
-       V->construireMaison(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z);
-
+    std::cout << "on ajoute les maison dans l'ig\n";
+    std::cout << _ville->maisonDeLaVille().size() << std::endl;
+    for (auto & house : _ville->maisonDeLaVille()){
+        V->construireMaison(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z);
    }
-
+    for (auto & road : _ville->routeDeLaVille()){
+        V->construireRoute(road->getMaison1()->coordMaison().X,
+                           road->getMaison1()->coordMaison().Y,
+                           road->getMaison1()->coordMaison().Z,
+                           road->getMaison2()->coordMaison().X,
+                           road->getMaison2()->coordMaison().Y,
+                           road->getMaison2()->coordMaison().Z);
+   }
 }
 

@@ -18,6 +18,7 @@
     #include "maison.hh"
     #include "route.hh"
     #include "instruction.hh"
+    #include "touroriente.hh"
 
     class Scanner;
     class Driver;
@@ -44,7 +45,8 @@
 %token                  MAISON
 %token <int>            NUMBER
 %token                  ROUTE
-
+%token                  HORRAIRE
+%token                  TOURNER
 
 %type <std::shared_ptr<construction>>             construction
 %type <coordonnee>                coord
@@ -145,6 +147,10 @@ element:
              $$.push_back(tmp);
 
          }
+        | TOURNER NUMBER  HORRAIRE NL element {
+
+            std::shared_ptr<tourOriente> t = std::make_shared<tourOriente>();
+        }
          | '}' NL
 
 

@@ -25,6 +25,7 @@ void maison::afficher(std::ostream &os) const
     os << "maison (" << coordMaison().X << "," << coordMaison().Y << "," << coordMaison().Z << ") [" << _idMaison << "].";
 }
 
+
 bool maison::operator ==(const maison &m){
     return (m.coordMaison().X == coordMaison().X && m.coordMaison().Y == coordMaison().Y && m.coordMaison().Z == coordMaison().Z);
 }

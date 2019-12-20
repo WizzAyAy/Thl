@@ -17,10 +17,12 @@ int main( int argc, char **argv) {
     Scanner * scanner = new Scanner(std::cin, std::cout);
     yy::Parser * parser = new yy::Parser(*scanner, *driver);
 
-    driver->exec();
-    //driver->getVille()->afficherVille();
     parser->parse();
+
+    driver->exec();
     driver->getville()->show();
     driver->construireVille();
+
+
     return app.exec();
 }
