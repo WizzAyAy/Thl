@@ -6,10 +6,11 @@
 #include <cstdlib>
 
 
+int maison::compteur =0;
 
-maison::maison(coordonnee A):instruction(),_coordMaison(A), _estAlea(false){}
+maison::maison(coordonnee A):instruction(),_coordMaison(A),_idMaison(++compteur),_orientation(90), _estAlea(false){}
 
-maison::maison(): instruction(),_coordMaison({0,0,0}), _estAlea(true){}
+maison::maison(): instruction(),_coordMaison({0,0,0}),_idMaison(++compteur),_orientation(90), _estAlea(true){}
 
 std::shared_ptr<instruction> maison::clone() const{
     return std::make_shared<maison>(*this);
@@ -21,7 +22,7 @@ void maison::exec(construction &C){
 
 void maison::afficher(std::ostream &os) const
 {
-    os << "maison (" << coordMaison().X << "," << coordMaison().Y << "," << coordMaison().Z << ") [" << getAlea() << "].";
+    os << "maison (" << coordMaison().X << "," << coordMaison().Y << "," << coordMaison().Z << ") [" << _idMaison << "].";
 }
 
 bool maison::operator ==(const maison &m){

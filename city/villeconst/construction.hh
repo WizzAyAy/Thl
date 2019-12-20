@@ -31,5 +31,6 @@ public:
     void ajouteRoute(std::shared_ptr<route> R);
 
     void exec(const std::vector<std::shared_ptr<instruction>> &vect);
+    void afficherVille() const;
 };
 

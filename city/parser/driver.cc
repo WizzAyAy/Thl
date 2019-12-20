@@ -1,11 +1,12 @@
 #include "driver.hh"
 #include "construction.hh"
+#include "maison.hh"
 
 #include <iostream>
 #include <memory>
 
 class maison;
-
+Driver::Driver(){V = new VilleGUI();}
 void Driver::setInstructions(std::vector<std::shared_ptr<instruction> > &inst){
     for(auto const & x : inst){
         _lesInstructions.push_back(x->clone());
@@ -38,6 +39,17 @@ void Driver::afficherVille() const
 //    std::cout << "Affichage de la ville : " << std::endl;
 //    for(auto x : _ville->maisonDeLaVille()){
 //        std::cout << "a" << std::endl;
-//    }
+    //    }
+}
+
+void Driver::construireVille() const
+{
+   V->setRayon(_ville->rayon());
+
+   for (auto & house : _ville->maisonDeLaVille()){
+       V->construireMaison(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z);
+
+   }
+
 }
 

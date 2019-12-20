@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+
+#include "../IG/villeGUI.hh"
 #include "instruction.hh"
 #include "contexte.hh"
 #include "construction.hh"
@@ -12,8 +14,9 @@ private:
     Contexte variables;       
     std::vector<std::shared_ptr<instruction>> _lesInstructions;
     std::shared_ptr<construction> _ville;
+    VilleGUI* V;
 public:
-    Driver() = default;
+    Driver();
     ~Driver() = default;
     Driver(const Driver&) = default;
 
@@ -21,11 +24,13 @@ public:
     void setVille(std::shared_ptr<construction> ville);
 
     std::shared_ptr<construction> getVille() const{return _ville;}
+    VilleGUI * getville(){return V;}
 
     void exec();
 
     void afficherDriver()const;
     void afficherVille()const;
+    void construireVille() const;
 };
 
 #endif

@@ -46,6 +46,17 @@ void construction::exec(const std::vector<std::shared_ptr<instruction> > &vect){
     }
 }
 
+void construction::afficherVille() const
+{
+    for( auto & road : _routeDeLaVille){
+        road->afficher(std::cout);
+    }
+    std::cout<<std::endl;
+    for( auto & house : _maisonDeLaVille){
+        house->afficher(std::cout);
+    }
+}
+
 
 //void construction::exec(std::vector<std::unique_ptr<instruction>> const & vect){
 //    for(auto const & i : vect){

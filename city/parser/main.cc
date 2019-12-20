@@ -1,20 +1,26 @@
 #include "parser.hpp"
 #include "scanner.hh"
 #include "driver.hh"
-#include "construction.hh"
+
 #include <iostream>
 #include <fstream>
+
+#include <QtGui>
+#include <QApplication>
+
 #include <cstring>
 
-int main( int  argc, char* argv[]) {
-    Driver driver;
-    Scanner scanner(std::cin, std::cout);
-    yy::Parser parser(scanner, driver);
+int main( int argc, char **argv) {
+    QApplication app(argc,argv);
 
-    parser.parse();
-    driver.exec();
-    //std::cout<<"taille -> "<<driver.getLesInstructions().size()<<std::endl;
-    driver.afficherDriver();
-    driver.afficherVille();
-    return 0;
+    Driver * driver = new Driver;
+    Scanner * scanner = new Scanner(std::cin, std::cout);
+    yy::Parser * parser = new yy::Parser(*scanner, *driver);
+
+    driver->exec();
+    //driver->getVille()->afficherVille();
+    parser->parse();
+    driver->getville()->show();
+    driver->construireVille();
+    return app.exec();
 }

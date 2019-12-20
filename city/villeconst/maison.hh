@@ -8,8 +8,11 @@ class maison : public instruction
 {
 private:
     coordonnee _coordMaison;
+    int _idMaison;
+    int _orientation;
     bool _estAlea;
 
+    static int compteur;
 public:
 
     maison();
@@ -17,7 +20,7 @@ public:
     maison(maison const & m)=default;
 
     std::shared_ptr<instruction> clone() const override;
-    void exec(construction & C);
+    void exec(construction & C) override;
 
     coordonnee coordMaison() const{return _coordMaison;}
     void setCoord( coordonnee Q){_coordMaison = Q;}
