@@ -3,7 +3,7 @@
 MaisonGUI::MaisonGUI(int x, int y, int z): m_orientation(0){
   m_position.x=x; m_position.y=y; m_position.z=z;
   m_couleur = QColor(255,0,0);
-  imageMaison = QPixmap("../IG/IMG/Maison.png");
+  imageMaison = QPixmap("./Maison.png");
   maskStructure = imageMaison.createMaskFromColor(QColor(0, 0, 0),Qt::MaskOutColor);
   maskNeutre = imageMaison.createMaskFromColor(QColor(255, 0, 0),Qt::MaskOutColor);
   maskClair = imageMaison.createMaskFromColor(QColor(255, 51, 51),Qt::MaskOutColor);
