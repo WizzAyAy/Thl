@@ -149,7 +149,7 @@ element:
          }
         | TOURNER NUMBER  HORRAIRE NL element {
 
-            std::shared_ptr<tourOriente> t = std::make_shared<tourOriente>();
+//            std::shared_ptr<tourOriente> t = std::make_shared<tourOriente>();
         }
          | '}' NL
 

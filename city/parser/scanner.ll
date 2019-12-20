@@ -37,6 +37,7 @@ fin return token::END;
 "," return ',';
 "-" return '-';
 ">" return '>';
+"!" return '!';
 [0-9]+      {
     yylval->build<int>(std::atoi(YYText()));
     return token::NUMBER;
@@ -48,6 +49,9 @@ fin return token::END;
         return token::CONSTRUIRE;
     }
     "maison"    {
+        return token::MAISON;
+    }
+    "m" {
         return token::MAISON;
     }
     "route"    {

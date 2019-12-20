@@ -30,6 +30,7 @@ public:
 
     void afficherDriver()const;
     void afficherVille()const;
+
     void construireVille() const;
 };
 

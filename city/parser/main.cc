@@ -23,6 +23,5 @@ int main( int argc, char **argv) {
     driver->getville()->show();
     driver->construireVille();
 
-
     return app.exec();
 }
