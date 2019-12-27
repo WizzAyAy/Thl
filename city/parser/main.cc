@@ -20,8 +20,9 @@ int main( int argc, char **argv) {
     parser->parse();
 
     driver->exec();
-    driver->getville()->show();
+//    int indice = rand()%driver->getVille()->rayon() +1;
+//    driver->getVille()->getMaisonI(indice)->afficher(std::cout);
     driver->construireVille();
-
+    driver->getville()->show();
     return app.exec();
 }

@@ -88,10 +88,9 @@ public:
     unsigned int getRadius() {return v_radius;}
 
     void construireMaison(int x, int y, int z) {
-        std::cout << x << " " << y << " " << z << std::endl;
+        std::cout<<"maison ajoute"<<std::endl;
         maisons.push_back(new MaisonGUI(x,y,z));
-        std::cout << maisons.size() << std::endl;
-    }
+        }
 
     void construireRoute(int x1, int y1, int z1, int x2, int y2, int z2) {routes.push_back(new RouteGUI(x1,y1,z1,x2,y2,z2));}
     void detruireMaison(int x, int y, int z);

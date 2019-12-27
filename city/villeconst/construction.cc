@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <time.h>
+#include <stdlib.h>
 
 #include "maison.hh"
 #include "route.hh"
@@ -11,10 +13,23 @@
 construction::construction(int rayon):_rayon(rayon){}
 construction::construction():_rayon(3){}
 
-std::shared_ptr<maison> construction::getMaisonI(const int &indice) const
+std::shared_ptr<maison> construction::getMaisonI(int indice) const
 {
-    auto it = std::find_if(_maisonDeLaVille.begin(), _maisonDeLaVille.end(), [indice](std::shared_ptr<maison> const & temp){return indice == temp->getIndice();});
-    return *it;
+    for (auto it =_maisonDeLaVille.begin();it != _maisonDeLaVille.end();++it){
+                if ((*it)->getIndice() == indice) return (*it);
+    }
+
+
+}
+
+std::shared_ptr<maison> construction::getMaisonCoo(coordonnee A) const
+{
+
+    for (auto house : _maisonDeLaVille){
+        if((house->coordMaison().X == A.X && house->coordMaison().Y == A.Y) && house->coordMaison().Z == A.Z)
+            return house;
+    }
+
 }
 
 bool construction::maisonExiste(coordonnee c)const{
@@ -26,20 +41,15 @@ bool construction::maisonExiste(coordonnee c)const{
 void construction::ajouteMaison(std::shared_ptr<maison> A){
     if(A->getAlea()){
        coordonnee nouv;
-       //c'est soit neg soit pos donc pas full random ...
-       int fois = rand()%2;
-       if (fois == 1){
-           nouv.X = (rand() % _rayon) +1;
-           nouv.Y = (rand() % _rayon) +1;
-           nouv.Z = (rand() % _rayon) +1;
-           }
-       else {
-           nouv.X = ((rand() % _rayon) +1)*-1;
-           nouv.Y = ((rand() % _rayon) +1)*-1;
-           nouv.Z = ((rand() % _rayon) +1)*-1;
-       }
+       do
+       {
+       nouv.X = _rayon*(-1) + (int)((float)rand() * (_rayon-(_rayon*(-1))+1)/ (RAND_MAX-1));
+       nouv.Y = _rayon*(-1) + (int)((float)rand() * (_rayon-(_rayon*(-1))+1)/ (RAND_MAX-1));
+       nouv.Z = _rayon*(-1) + (int)((float)rand() * (_rayon-(_rayon*(-1))+1)/ (RAND_MAX-1));
+       }while (nouv.X + nouv.Y + nouv.Z != 0);
        A->setCoord(nouv);
-   }
+
+    }
    _maisonDeLaVille.push_back(A);
 }
 

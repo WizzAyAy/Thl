@@ -25,7 +25,8 @@ public:
     void setRayon(unsigned int rayon){_rayon = rayon;}
     std::vector<std::shared_ptr<maison>> maisonDeLaVille()const{return _maisonDeLaVille;}
     std::vector<std::shared_ptr<route>>  routeDeLaVille()const{return _routeDeLaVille;}
-    std::shared_ptr<maison> getMaisonI(int const &indice)const;
+    std::shared_ptr<maison> getMaisonI(int indice)const;
+    std::shared_ptr<maison> getMaisonCoo(coordonnee A)const;
 
 
     bool maisonExiste(coordonnee c)const;

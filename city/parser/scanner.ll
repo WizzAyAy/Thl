@@ -57,11 +57,17 @@ fin return token::END;
     "route"    {
         return token::ROUTE;
     }
-    "horraire" {
-        return token::HORRAIRE;
+    "horaire" {
+        return token::HORAIRE;
     }
     "tourner" {
         return token::TOURNER;
+    }
+    "orienter"  {
+    return token::ORIENTER;
+    }
+    "detruire"  {
+    return token::DEPLACER;
     }
     "\n"          {
     loc->lines();

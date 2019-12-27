@@ -8,15 +8,15 @@
 
 int maison::compteur =0;
 
-maison::maison(coordonnee A):instruction(),_coordMaison(A),_idMaison(++compteur),_orientation(90), _estAlea(false){}
+maison::maison(coordonnee A):instruction(),_coordMaison(A),_idMaison(++compteur),_orientation(0),_tourne(0), _estAlea(false),_detruire(false){}
 
-maison::maison(): instruction(),_coordMaison({0,0,0}),_idMaison(++compteur),_orientation(90), _estAlea(true){}
+maison::maison(): instruction(),_coordMaison({0,0,0}),_idMaison(++compteur),_orientation(0),_tourne(0) ,_estAlea(true),_detruire(false){}
 
 std::shared_ptr<instruction> maison::clone() const{
     return std::make_shared<maison>(*this);
 }
 
-void maison::exec(construction &C){
+void maison:: exec(construction &C){
    C.ajouteMaison(std::make_shared<maison>(*this));
 }
 

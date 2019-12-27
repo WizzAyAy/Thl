@@ -3,7 +3,7 @@
 #include "construction.hh"
 
 
-route::route(const std::shared_ptr<maison> &A, const std::shared_ptr<maison> &B)
+route::route(coordonnee A, coordonnee B)
     :instruction(),_extremite1(A),_extremite2(B) {}
 
 std::shared_ptr<instruction> route::clone() const{
@@ -13,9 +13,9 @@ std::shared_ptr<instruction> route::clone() const{
 void route::afficher(std::ostream &os) const
 {
     os << "route de ";
-    _extremite1->afficher(os);
+    os<<"("<<_extremite1.X <<","<<_extremite1.Y<<","<<_extremite1.Z<<")";
     os << " vers ";
-    _extremite2->afficher(os);
+    os<<"("<<_extremite2.X <<","<<_extremite2.Y<<","<<_extremite2.Z<<")";
 }
 
 void route::exec(construction &C){

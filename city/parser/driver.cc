@@ -42,29 +42,29 @@ void Driver::afficherVille() const
 //    std::cout << "Affichage de la ville : " << std::endl;
 //    for(auto x : _ville->maisonDeLaVille()){
 //        std::cout << "a" << std::endl;
-    //    }
+//    }
 }
 
 void Driver::construireVille() const
 {
     V->setRayon(_ville->rayon());
-
-    V->construireMaison(2,2,2);
-    V->construireMaison(1,1,1);
-
-    V->construireRoute(2,2,2,1,1,1);
-
-//    for (auto & house : _ville->maisonDeLaVille()){
-//        V->construireMaison(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z);
-//    }
-
-//    for (auto & road : _ville->routeDeLaVille()){
-//        V->construireRoute(road->getMaison1()->coordMaison().X,
-//                           road->getMaison1()->coordMaison().Y,
-//                           road->getMaison1()->coordMaison().Z,
-//                           road->getMaison2()->coordMaison().X,
-//                           road->getMaison2()->coordMaison().Y,
-//                           road->getMaison2()->coordMaison().Z);
-//    }
+     for (auto & house : _ville->maisonDeLaVille()){
+        V->construireMaison(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z);
+        //ce if verifier si tourner est set si oui il tourne la maison
+        if (house->getTourne() != 0) V->setOrientation(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z,house->getTourne());
+        //fait l'orientataion si la condition est respectee
+        if (house->getOrientation() != 0) V->setOrientation(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z,house->getOrientation());
+        //fait la destruction
+        if (house->getDetruire()) V->detruireMaison(house->coordMaison().X,house->coordMaison().Y,house->coordMaison().Z);
+     }
+     for (auto  road : _ville->routeDeLaVille()){
+        std::cout<<"une route ici"<<std::endl;
+        V->construireRoute(road->getMaison1().X,
+                           road->getMaison1().Y,
+                           road->getMaison1().Z,
+                           road->getMaison2().X,
+                           road->getMaison2().Y,
+                           road->getMaison2().Z);
+    }
 }
 

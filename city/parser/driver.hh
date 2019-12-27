@@ -13,6 +13,7 @@ class Driver {
 private:
     Contexte variables;       
     std::vector<std::shared_ptr<instruction>> _lesInstructions;
+    std::vector<std::shared_ptr<instruction>> _lesInstructionsDeGestion;
     std::shared_ptr<construction> _ville;
     VilleGUI* V;
 public:
@@ -25,6 +26,7 @@ public:
 
     std::shared_ptr<construction> getVille() const{return _ville;}
     VilleGUI * getville(){return V;}
+    std::vector<std::shared_ptr<instruction>> getGestion() {return _lesInstructionsDeGestion;}
 
     void exec();
 

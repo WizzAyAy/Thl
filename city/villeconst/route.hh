@@ -1,22 +1,22 @@
 #pragma once
 #include "instruction.hh"
-
+#include "coordonnees.hh"
 class maison;
 class route : public instruction
 {
 private:
-    std::shared_ptr<maison> _extremite1;
-    std::shared_ptr<maison> _extremite2;
+    coordonnee _extremite1;
+    coordonnee _extremite2;
 public:
-    route(std::shared_ptr<maison> const &A, std::shared_ptr<maison> const &B);
+    route(coordonnee A, coordonnee B);
     route (route const &R) =default;
     ~route () =default;
 
     std::shared_ptr<instruction> clone() const override;
     void afficher(std::ostream &os)const override;
 
-    std::shared_ptr<maison> getMaison1()const{return _extremite1;}
-    std::shared_ptr<maison> getMaison2()const{return _extremite2;}
+    coordonnee getMaison1()const{return _extremite1;}
+    coordonnee getMaison2()const{return _extremite2;}
 
     void exec(construction & C) override;
 };
